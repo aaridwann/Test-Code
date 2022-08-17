@@ -5,7 +5,7 @@ function SearchInput({ input }) {
   const searchRef = useRef();
   useMemo(() => {
     input(value);
-  }, [value]);
+  }, [setValue]);
 
   useEffect(() => {
     searchRef.current.focus()
