@@ -1,5 +1,5 @@
 import React, { Suspense, useCallback, useContext, useEffect, useRef, useState } from "react";
-// import AppsModal from "../../Components/Modal/AppsModal";
+const InputComponent = React.lazy(() => import('../../Components/Input'))
 const AppsModal = React.lazy(() => import('../../Components/Modal/AppsModal'))
 import { AuthContext } from "../../Context/AuthContext";
 import { LoginFunction } from "../../Helper/Login.js";
@@ -16,7 +16,7 @@ function Login() {
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
-    userRef.current.focus();
+    // userRef.current.focus();
     document.title = 'Login Page';
   }, []);
 

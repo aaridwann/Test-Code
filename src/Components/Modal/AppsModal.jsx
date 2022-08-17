@@ -11,7 +11,6 @@ function AppsModal({ on, state, message = "Success", close }) {
     }, 500);
     return () => setShow(false);
   }, [on]);
-
   return (
     <div
       onClick={close}

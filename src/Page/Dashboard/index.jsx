@@ -53,7 +53,7 @@ function Dashboard() {
         <Suspense fallback={<Loading />}>
           <SearchInput input={(e) => Search(e)} />
         </Suspense>
-        {dataFind.length !== 0
+        {dataFind.length !== 0 && dataFind.length !== 10
           ? dataFind.map((data) =>
             <Suspense fallback={<Loading />}>
               <CardComponent coment={() => detailComment(data)} key={data.id} data={data} />

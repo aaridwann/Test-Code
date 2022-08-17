@@ -13,7 +13,6 @@ function PaginationComponent({ currentPage, plus, minus, dataLength, page }) {
   useEffect(() => {
     setCount(Pagination());
   }, [dataLength]);
-
   return (
     <div className=" mb-20 mt-20 float-right flex gap-4 text-md font-bold text-zinc-600">
       {currentPage - 1 !== count[0] && (
