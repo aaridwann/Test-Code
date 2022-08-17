@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "../Components/Navbar/Index";
 import { AuthContext } from "../Context/AuthContext";
 import Dashboard from "../Page/Dashboard";
 import DetailComment from "../Page/DetailComment";

@@ -1,11 +1,12 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import CardComponent from "../../Components/Card/Index";
+import React, { Suspense, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import Navbar from "../../Components/Navbar/Index";
-import SearchInput from "../../Components/SearchInput/Index";
+import Loading from '../../Components/Loading'
 import axios from "axios";
-import PaginationComponent from "../../Components/Pagination/Index";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Context/AuthContext";
+const CardComponent = React.lazy(() => import('../../Components/Card'))
+const PaginationComponent = React.lazy(() => import('../../Components/Pagination'))
+const SearchInput = React.lazy(() => import('../../Components/SearchInput'))
+
 
 function Dashboard() {
   const [data, setData] = useState([]);
@@ -49,11 +50,23 @@ function Dashboard() {
   return (
     <Navbar>
       <div className=" w-3/5 m-auto mt-20 mb-20">
-        <SearchInput input={(e) => Search(e)} />
+        <Suspense fallback={<Loading />}>
+          <SearchInput input={(e) => Search(e)} />
+        </Suspense>
         {dataFind.length !== 0
-          ? dataFind.map((data) => <CardComponent coment={() => detailComment(data)} key={data.id} data={data} />)
-          : dataPart.map((data) => <CardComponent coment={() => detailComment(data)} key={data.id} data={data} />)}
-        <PaginationComponent currentPage={page} page={(e) => settingPage(e)} dataLength={dataFind.length !== 0 ? dataFind.length : data.length} plus={() => plus()} minus={() => setPage(page - 1)} />
+          ? dataFind.map((data) =>
+            <Suspense fallback={<Loading />}>
+              <CardComponent coment={() => detailComment(data)} key={data.id} data={data} />
+            </Suspense>
+          )
+          : dataPart.map((data) =>
+            <Suspense fallback={<Loading />}>
+              <CardComponent coment={() => detailComment(data)} key={data.id} data={data} />
+            </Suspense>
+          )}
+        <Suspense fallback={<Loading />}>
+          <PaginationComponent currentPage={page} page={(e) => settingPage(e)} dataLength={dataFind.length !== 0 ? dataFind.length : data.length} plus={() => plus()} minus={() => setPage(page - 1)} />
+        </Suspense>
       </div>
     </Navbar>
   );
