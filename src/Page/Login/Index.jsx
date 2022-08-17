@@ -1,8 +1,10 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
-import AppsModal from "../../Components/Modal/AppsModal";
+import React, { Suspense, useCallback, useContext, useEffect, useRef, useState } from "react";
+// import AppsModal from "../../Components/Modal/AppsModal";
+const AppsModal = React.lazy(() => import('../../Components/Modal/AppsModal'))
 import { AuthContext } from "../../Context/AuthContext";
 import { LoginFunction } from "../../Helper/Login.js";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../Components/Loading";
 
 function Login() {
   const navigate = useNavigate();
@@ -41,7 +43,9 @@ function Login() {
 
   return (
     <div className=" w-full min-h-screen flex justify-center items-center ">
-      <AppsModal on={modal} close={closeModal} message={message} state={message == "success" ? true : false} />
+      <Suspense fallback={<Loading />}>
+        <AppsModal on={modal} close={closeModal} message={message} state={message == "success" ? true : false} />
+      </Suspense>
       <form onSubmit={submit}>
         <div className=" w-60 h-80 flex flex-col justify-start items-center gap-6">
           <h1 className=" text-zinc-700 font-bold text-2xl mb-8">Login Page</h1>
@@ -69,4 +73,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default React.memo(Login);
